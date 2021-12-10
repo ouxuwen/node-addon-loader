@@ -1,3 +1,5 @@
+# fix Cannot read property 'nodeAddonLoader' of undefined 
+
 A simple loader to embed native addons in [node] or [electron] projects.
 
 This package is a mix between:
