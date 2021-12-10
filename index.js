@@ -13,7 +13,7 @@ module.exports = function(content) {
   };
   // Parse query
   var query = loaderUtils.getOptions(this) || {};
-  var options = this.options[query.config || "nodeAddonLoader"] || {};
+  var options = this._compiler.options[query.config || "nodeAddonLoader"] || {};
   // options takes precedence over config
   Object.keys(options).forEach(function(attr) {
     config[attr] = options[attr];
@@ -25,7 +25,7 @@ module.exports = function(content) {
 
   // Build the output file name
   var url = loaderUtils.interpolateName(this, config.name, {
-    context: this.options.context,
+    context: this._compiler.options.context,
     content: content
   });
 
@@ -40,7 +40,7 @@ module.exports = function(content) {
   if (config.rewritePath) {
     finalUrl = JSON.stringify(path.join(config.rewritePath, url));
   } else if (config.basePath) {
-    var basePath = path.relative(config.basePath, this.options.output.path);
+    var basePath = path.relative(config.basePath, this._compiler.options.output.path);
     finalUrl = JSON.stringify(path.join(basePath, url));
   } else {
     finalUrl = "__webpack_public_path__ + " + JSON.stringify(url);
